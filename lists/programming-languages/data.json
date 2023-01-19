@@ -1,0 +1,22 @@
+{
+	"items": [
+		{
+			"name": "Python",
+			"props": {
+				"img": "assets/python.png"
+			}
+		},
+		{
+			"name": "Javascript",
+			"props": {
+				"img": "assets/javascript.png"
+			}
+		},
+		{
+			"name": "Typescript",
+			"props": {
+				"img": "assets/typescript.png"
+			}
+		}
+	]
+}
