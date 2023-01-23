@@ -1,0 +1,16 @@
+<div class="text-center">
+	<h1>Fansort demo</h1>
+</div>
+
+<ul class="list-group">
+	{% for list in lists %}
+		{% assign props = list.props %}
+		<button id="{{list.id}}" class="list-group-item list-group-item-action d-flex align-items-center p-1">
+			<img src="{{list.dir | concat: props.icon}}" alt="logo-{{list.id}}" width="62" height="62"
+				class="border bg-light">
+			<div class="ms-2">
+				<h3 class="m-0 fw-normal">{{list.title}}</h3>
+			</div>
+		</button>
+	{% endfor %}
+</ul>

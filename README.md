@@ -10,11 +10,11 @@ to view the results.
 
 Contents:
 1. [Quickstart](#quickstart) - Teaches you the minimal information you need to know to create itemlists
-2. [Advanced](#advanced) - Explains all the features that an itemlist can make use of
+2. [Reference](#reference) - Explains all the features that an itemlist can make use of
 
 # Quickstart
 
-This section will guide you through the process of creating a minimal itemlist from scratch. See the [Advanced](#advanced) section for in-depth detail of all the features.
+This section will guide you through the process of creating a minimal itemlist from scratch. See the [Reference](#reference) section for in-depth detail of all the features.
 
 ## Setting up
 
@@ -42,7 +42,7 @@ It should look something like `https://floofnoodlecode.github.io/fansort/#/index
 Now that we have a fansort link, the changes that we will make in the repo will show up in the app.
 Remember that if you want to visualize the changes after every step, you will need to **commit and push** the changes to
 your repo and **refresh the app page**. You could also work locally by using any basic development server, but this is
-explained in the [Advanced](#advanced) section.
+explained in the [Reference](#reference) section.
 
 ## Creating the itemlist
 
@@ -90,7 +90,7 @@ I will just name it `programming-languages`.
 ```
 
 Push the changes to the repo and refresh the app page. You should see that the index page now contains a link to your
-`Programming Languages`. We will show how to make this page look prettier in the [Advanced](#advanced) section. For now, click
+`Programming Languages`. We will show how to make this page look prettier in the [Reference](#reference) section. For now, click
 the link to go to the itemlist page. You should see that it shows 3 items at the bottom the page,
 their names corresponding to the `name` properties used in `data.json`. Click the blue **Start** button at the top
 of the page to start sorting.
@@ -139,6 +139,78 @@ corresponding to that item. Notice how the template uses `{{item.props.img}}` to
 Note that the rendered `thumb.liquid` is interpreted as an XML specific to Fansort.
 In this case the `<image>` tag instructs the app to render the image given in `src`.
 `width` and `height` specify the final width and height of the image, but they are optional.
-More details in [Advanced](#advanced).
+More details in [Reference](#reference).
 
-# Advanced
+# Reference
+
+## Collection Index
+
+### index.json
+Every repository must contain at its root a file named `index.json` with the following schema:
+```typescript
+{
+	"lists": string[] // Array of itemlist directories
+}
+```
+
+The structure of itemlist directories is described at #TODO.
+
+### index.liquid
+The index page can be customized using a template file located at `liquid/index.liquid`.
+The template should output the desired HTML to display as the index page.
+
+The template has access to the following variables:
+```typescript
+const lists: {
+	id: string // Id that should be placed on an HTML element. The app adds an onclick event to that element that will change the URL to the itemlist page
+	dir: string // Itemlist directory. It is guaranteed to end with a slash (/)
+	title: string // Itemlist title, as given in the list's manifest
+	props?: {[key: string]: any} // Itemlist props, as given in the list's manifest
+}[]
+```
+
+## Itemlists
+
+### manifest.json
+Each itemlist must contain a `manifest.json` file in their respective directory. It has the following schema:
+```typescript
+{
+	"title": string // Itemlist default title
+	"props"?: {[key: string]: any} // Arbitrary object that gets passed to index.liquid template
+}
+```
+
+The information from this file can be used in the [index.liquid](#index.liquid) template.
+
+### data.json
+Each itemlist must contain a `data.json` file in their respective directory. It has the following schema:
+```typescript
+{
+	"items": ItemJSON[] // List of items
+	"attrs"?: AttrJSON[] // List of item attribute pointers
+	"rankings"?: RankingJSON[] // Itemlist owner's rankings
+	"context"?: {[key: string]: string} // Additional data that the liquid templates will receive
+}
+```
+
+Each property is described in detail below.
+
+#### data.items
+This property contains the data for each individual item.
+It should contain a list of `ItemJSON` objects, where each object has the following schema:
+```typescript
+{
+	"name": string // Item name. Must be unique.
+	"props"?: {[key: string]: any} // Arbitrary properties that get passed to templates
+}
+```
+
+**IMPORTANT**: **If you want to update** an itemlist's data, there are a few rules that must be followed in order to not break existing URLs/rankings/states/etc.
+That's because Fansort relies on the item indexes, not their names, to store the state/rankings/etc.
+If an item is at position `i` in the `items` array, it must forever exist at that position.
+This induces the following rules:
+1. Never delete items. Any item's data, like the `name` and `props`, can be updated as you see fit but it should still represent the same item.
+2. Never rearrange items in the array.
+3. New items must only be added at the end of the array.
+
+#### data.attrs
