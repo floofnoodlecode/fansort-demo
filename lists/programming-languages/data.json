@@ -2,21 +2,56 @@
 	"items": [
 		{
 			"name": "Python",
+			"attrs": {
+				"Paradigm": "Object Oriented"
+			},
 			"props": {
 				"img": "assets/python.png"
 			}
 		},
 		{
 			"name": "Javascript",
+			"attrs": {
+				"Paradigm": "Object Oriented"
+			},
 			"props": {
 				"img": "assets/javascript.png"
 			}
 		},
 		{
 			"name": "Typescript",
+			"attrs": {
+				"Typed": true,
+				"Paradigm": "Object Oriented"
+			},
 			"props": {
 				"img": "assets/typescript.png"
 			}
+		},
+		{
+			"name": "C",
+			"attrs": {
+				"Typed": true,
+				"Paradigm": "Procedural"
+			},
+			"props": {
+				"img": "assets/c.png"
+			}
 		}
-	]
+	],
+	"attrValuesOrder": {
+		"Paradigm": [
+			"Procedural",
+			"Object Oriented"
+		]
+	},
+	"rankings": [
+		{
+			"title": "My ranking",
+			"state": "m8LAzDiJYRLDZAYmRgA"
+		}
+	],
+	"sharedDataImports": {
+		"paradigmLinks": "../shared-data.json"
+	}
 }

@@ -1,0 +1,30 @@
+{% assign props = item.props %}
+
+<div class="text-center border border-1 rounded-1 border-dark">
+	{% if props.url %}
+		<a href="{{props.url}}">
+	{% endif %}
+			<h6 class="fs-6 mb-0 pe-1 ps-1">{{item.name}}</h6>
+	{% if props.url %}
+		</a>
+	{% endif %}
+	<div class="bg-light">
+		<div>
+			<img class="img-fluid" src="{{props.img}}"/>
+		</div>
+	</div>
+
+	<table class="table table-sm align-middle small mb-0"><tbody>
+		{% if item.attrs.Paradigm %}
+			<tr>
+				<th scope="row">Paradigm</th>
+				<td><a href="{{shared.paradigmLinks[item.attrs.Paradigm]}}">{{item.attrs.Paradigm}}</a></td>
+			</tr>
+		{% endif %}
+
+		<tr>
+			<th scope="row">Typed</th>
+			<td>{{item.attrs.Typed | default: false}}</td>
+		</tr>
+	</table>
+</div>
