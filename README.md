@@ -1,11 +1,11 @@
 # Overview
-This should serve as a tutorial on how to create itemlists for
+This repository's goal is to serve as a tutorial on how to create itemlists for
 [Fansort](https://floofnoodlecode.github.io/fansort/#/title?EOL=), an item sorter for user-defined itemlists.
 
-This repository is also an itemlist collection that demonstrates all the features that you can use
-for your custom itemlists. In order to see these features you can go to
+It is also an itemlist collection that demonstrates all the features that you can use
+for your custom itemlists. Fansort link for this repo:
 https://floofnoodlecode.github.io/fansort/#/index/m8Q0jWF9Wk5-flpefn5KTmpyfkoq45q0xLzi_KIS3ZTU3HymJbmJmXkA?EOL=
-to view the results.
+
 
 Contents:
 1. [Quickstart](#quickstart) - Teaches you the minimal information you need to know to create itemlists
@@ -32,20 +32,20 @@ We must first create a repository and obtain a Fansort link for our repo.
 and paste the copied URL into the first input box (*Root URL*)
 
 **Step 5**: The app has generated the URL for your repo in the bottom text field.
-It should look something like `https://floofnoodlecode.github.io/fansort/#/index/m8Q0jWF9Wk5-flpefn5KTmpyfkoq45q0xLzi_KIS3ZTU3HymJbmJmXkA?EOL=`.
+It should look something like https://floofnoodlecode.github.io/fansort/#/index/m8Q0jWF9Wk5-flpefn5KTmpyfkoq45q0xLzi_KIS3ZTU3HymJbmJmXkA?EOL=.
 
-**Step 6**: Go to that URL. It currently shows an empty page, since we still haven't added any itemlists.
+**Step 6**: Go to your URL. It currently shows an empty page, since we still haven't added any itemlists.
 
 Now that we have a fansort link, the changes that we will make in the repo will show up in the app (although it might take a few minutes).
 Remember that if you want to visualize the changes after every step, you will need to **commit and push** the changes to
-your repo and **refresh the app page**. You could also work locally by using any basic development server.
+your repo and **refresh the app page**. You could also work locally by using a basic development server.
 This is explained in the [Local development](#local-development) section.
 
 ## Creating the itemlist
 We will finally create the itemlist and add a few items to it. The items will be text only.
 In the next section we will add thumbnails for our items.
 
-**Step 1**: Since a repository can contain multiple itemlists, it is a good idea to group into a common folder.
+**Step 1**: Since a repository can contain multiple itemlists, it is a good idea to group them into a common folder.
 Create a folder named `lists` into the root of your repo.
 
 **Step 2**: Inside the `lists` folder, create the folder in which the itemlist will reside.
@@ -66,7 +66,7 @@ I will just name it `programming-languages`.
 	"title": "Programming Languages"
 }
 ```
-`title` property is used as the default title for a new itemlist.
+The `title` property is required and it is used as the default title for a new itemlist.
 
 **Step 5**: Inside `lists/programming-languages`, create a `data.json` file and add the following text to it:
 ```json
@@ -86,14 +86,14 @@ I will just name it `programming-languages`.
 ```
 
 Push the changes to the repo and refresh the app page. You should see that the index page now contains a link to your
-`Programming Languages`. We will show how to make this page look prettier in the [index.liquid](#indexliquid) section. For now, click
+`Programming Languages` itemlist. We will show how to make this page prettier in the [index.liquid](#indexliquid) section. For now, click
 the link to go to the itemlist page. You should see that it shows 3 items at the bottom the page,
-their names corresponding to the `name` properties used in `data.json`. Click the blue **Start** button at the top
-of the page to start sorting.
+their names corresponding to the `name` properties used in `data.json`. We can click the blue **Start** button
+at the top of the page to start sorting.
 
 ## Item thumbnails
-First, let's download some images and put them in the itemlist folder. The path doesn't matter. You can find the images
-in the `assets/` folder. Next, the `data.json` needs to be updated to specify the image corresponding to each item:
+First, let's download some images and put them in an `assets` folder.
+Next, the `data.json` needs to be updated to include the image corresponding to each item:
 ```json
 {
 	"items": [
@@ -129,9 +129,9 @@ In this folder, create a `thumb.liquid` file and add the following text to it:
 ```
 
 The app renders this template for each item. The template will receive an `item` variable which contains the JSON object
-corresponding to that item. Notice how the template uses `{{item.props.img}}` to decide the `src` dynamically.
+corresponding to that item. Notice how the template uses `{{item.props.img}}` to specify the image source dynamically.
 
-Note that the rendered `thumb.liquid` is interpreted as an XML specific to Fansort.
+Note that the rendered `thumb.liquid` should ouput an XML specific to Fansort.
 In this case the `<image>` tag instructs the app to render the image given in `src`.
 `width` and `height` specify the final width and height of the image, but they are optional.
 More details in [thumb.liquid](#thumbliquid).
@@ -140,19 +140,19 @@ More details in [thumb.liquid](#thumbliquid).
 ## Generating a Fansort URL
 The itemlist collection can be hosted either on github or on any webserver that allows [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). To obtain a URL to your collection, you need to perform the following steps:
 
-1. Go to the [Fansort Create page](https://floofnoodlecode.github.io/fansort/#/create?type=repo&EOL=) and paste the URL to the collection's index.json or its directory into the first input box (*Root URL*). Examples:
-	- *GitHub repo*: https://github.com/floofnoodlecode/fansort-binding-of-isaac
-	- *Server URL*: https://raw.githubusercontent.com/floofnoodlecode/fansort-binding-of-isaac/main/index.json
-	- *Dev Server*: http://localhost:8080
+1. Go to the [Fansort Create page](https://floofnoodlecode.github.io/fansort/#/create?type=repo&EOL=) and paste the URL to the collection's *index.json* or its directory into the first input box (*Root URL*). Examples:
+	- *GitHub repo*: https://github.com/floofnoodlecode/fansort-binding-of-isaac (Fansort knows how to interpret GitHub URLs)
+	- *Server URL*: https://raw.githubusercontent.com/floofnoodlecode/fansort-binding-of-isaac/main/index.json (arbitrary URL)
+	- *Dev Server*: http://localhost:8080 (local server)
 2. The app has generated the URL for your repo in the bottom text field. Clicking on it should take you to the collection's index.
 
 ### Local development
 You can use a local HTTP server to see your changes without pushing them to a public server.
 
-I recommend using [Live Server](https://github.com/tapio/live-server#readme) because it also works
+I recommend using [live-server](https://github.com/tapio/live-server#readme) because it also works
 with the live reload feature described [below](#live-reload). Steps:
 1. Install [node.js](https://nodejs.org/en/)
-2. Open the terminal and install *Live Server*: `npm install -g live-server`
+2. Open the terminal and install *live-server*: `npm install -g live-server`
 3. Go to your collection's root (the folder with `index.json`) and start the server: `live-server --cors`
 4. Go to the [collection's URL](https://floofnoodlecode.github.io/fansort/#/index/m8S4LaOkpMBKXz8nPzkxJyO_uMTKwsDCQB8A?EOL=). This URL was generated from the *Fansort Create page* as described [above](#generating-a-fansort-url)
 
@@ -181,7 +181,7 @@ The template should output the desired HTML to display as the index page.
 The template has access to the following variables:
 ```typescript
 const lists: {
-	id: string // Id that should be placed on an HTML element. The app adds an onclick event to that element that will change the URL to the itemlist page
+	id: string // Id that should be placed on an HTML element. The app adds an onclick event to that element that will navigate to the itemlist page
 	dir: string // Itemlist directory. It is guaranteed to end with a slash (/)
 	title: string // Itemlist title, as given in the list's manifest
 	props?: {[key: string]: any} // Itemlist props, as given in the list's manifest
@@ -192,7 +192,7 @@ const lists: {
 ### manifest.json
 Each itemlist must contain a `manifest.json` file in their respective directory. It has the following schema:
 ```typescript
-{
+type ManifestJSON = {
 	"title": string // Itemlist default title
 	"props"?: {[key: string]: any} // Arbitrary object that gets passed to index.liquid template
 }
@@ -203,11 +203,11 @@ The information from this file can be used in the [index.liquid](#index.liquid) 
 ### data.json
 Each itemlist must contain a `data.json` file in their respective directory. It has the following schema:
 ```typescript
-{
+type DataJSON = {
 	"items": ItemJSON[] // List of items
 	"attrValuesOrder"?: {[key: string]: string[]} // Order of item attribute values
 	"rankings"?: RankingJSON[] // Itemlist owner's rankings
-	"sharedDataImports"?: {[key: string]: string} // Additional JSON files that the liquid templates will receive in an `shared` variable
+	"sharedDataImports"?: {[key: string]: string} // Additional JSON files that the liquid templates will receive in a `shared` object
 }
 ```
 
@@ -217,7 +217,7 @@ Each property is described in detail below.
 This property contains the data for each individual item.
 It should contain a list of `ItemJSON` objects, where each object has the following schema:
 ```typescript
-{
+type ItemJSON = {
 	"name": string // Item name. Must be unique.
 	"attrs"?: {[key: string]: AttrValue | AttrValue[]} // Item attributes. Described below.
 	"props"?: {[key: string]: any} // Arbitrary properties that get passed to templates
@@ -230,7 +230,7 @@ If an item is at position `i` in the `items` array, it must forever exist at tha
 This induces the following rules:
 1. Never delete items. Any item's data (`name`, `attrs` and `props`), can be updated as you see fit but it should still represent the same item.
 2. Never rearrange items in the array.
-3. New items must only be added at the end of the array.
+3. New items can only be added at the end of the array.
 
 ##### item.attrs
 Items can define attributes, which enables filtering items by their attributes.
@@ -247,7 +247,7 @@ Optional attribute configuration. If `attrValuesOrder` is given, it must be an o
 of the attributes given in `item.attrs` and the value is an array of strings.
 The string indicate the order of the values in the filter selection dropdown.
 By default, the values are sorted in alphabetical order.
-If given, it must contain ALL possible string values that the attribute can take.
+If given, it must contain ALL string values that the attribute can take.
 
 #### data.rankings
 List of itemlist rankings to be displayed on the itemlist page.
@@ -284,7 +284,7 @@ const shared: {[key: string]: any}
 #### thumb.liquid
 `thumb.liquid` needs to output XML data that instructs the app how to draw the thumbnail.
 Currently it must be a single `<image>` tag with the following attributes:
-- `src`: Path or URL to image source. Mandatory.
+- `src`: Path or URL to the image source. Mandatory.
 - `width`: The intrinsic width of the image in pixels. Must be an integer without a unit. Optional.
 - `height`: The intrinsic height of the image, in pixels. Must be an integer without a unit. Optional.
 - `pixelated`: Must be either `true` or `false`. If true, the image is drawn with a nearest neighbor interpolation. Default `false`.
@@ -302,8 +302,8 @@ Optional. Outputs arbitrary HTML data, used for rendering detailed data for each
 
 ## HTML Templates rules
 The HTML that the templates output is post-processed before injecting it into the page:
-1. Only certain tags and attributes are allowed. In general, everything that could execute javascript is removed. `<style>` tags are currently not allowed, but you can use `style` attributes. However, it is highly recommended to use [Bootstrap 5](https://getbootstrap.com/) classes instead. Aditionally, a `pixelated` class is available that modifies [`image-rendering`](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering).
-1. URLs that look like a path (e.g. *assets/image.png*) are changed to point to the repo. Relative paths assume that the current directory is the root directory when rendering *index.liquid* or the itemlist's directory when rendering *card.liquid*.
+1. Only certain tags and attributes are allowed. In general, everything that could execute javascript is removed. `<style>` tags are currently not allowed, but you can use `style` attributes. However, it is highly recommended to use [Bootstrap 5](https://getbootstrap.com/) classes instead. Aditionally, a `pixelated` class is available that modifies [`image-rendering`](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering) such that the image remains pixelated upon resize.
+1. URLs that look like a path (e.g. `src="assets/image.png"`) are changed to point to the repo. Relative paths assume that the current directory is the root directory when rendering *index.liquid* or the itemlist's directory when rendering *card.liquid*.
 1. All links are made to open in a new tab/window.
 
 Check out the developer tools console (F12 > Console tab) in the browser for errors related to template rendering.
